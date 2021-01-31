@@ -31,10 +31,84 @@ fi
 #####################################################################################
 ##################  openconnect kurulumu  ###########################################
 cd /tmp/afad-app-fix
-tar -xzf openconnect-8.10.tar.gz
-mv openconnect-8.10 openconnect
+tar -xzf openconnect-master.tar.gz
+mv openconnect-master openconnect
 cp -r openconnect /opt/afad/
 chmod 777 -R /opt/afad/openconnect
 cp afad-vpn.desktop /usr/share/applications/
 ############ Normal kullanıcılara VPN Çalıştırma yetkisi ############################
 echo 'ALL ALL= NOPASSWD: /opt/afad/openconnect/openconnect' | sudo EDITOR='tee -a' visudo
+#####################################################################################
+#####################################################################################
+##########################   Uygulama isimleri ######################################
+#####################################################################################
+#####################################################################################
+#####################################################################################
+#####################################################################################
+##################  Peynir isim düzeltme  ###########################################
+sed -i 's+Name\[tr\]=Peynir+Name\[tr\]=Webcam - Peynir+g' /usr/share/applications/org.gnome.Cheese.desktop
+
+##################Stacer Sistem Temizleme############################
+stacer_file1=$(less /usr/share/applications/stacer.desktop |grep -F Name[tr] | wc -l)
+if [ "$stacer_file1" -lt "1" ] ; then
+echo """Name[tr]=Sistem Temizleme
+""" >> /usr/share/applications/stacer.desktop
+else 
+echo ok
+fi
+find /home -type d -name ".config" -exec cp -r /etc/skel/.config/stacer "{}"/ \;
+
+################## Müzik Çalar ############################
+audacious_file1=$(less /usr/share/applications/audacious.desktop |grep -F Name[tr] | wc -l)
+if [ "$audacious_file1" -lt "2" ] ; then
+echo """Name[tr]=Müzik Çalar
+""" >> /usr/share/applications/audacious.desktop
+else 
+echo ok
+fi
+find /home -type d -name ".config" -exec cp -r /etc/skel/.config/audacious "{}"/ \;
+
+################### Uzak Masaüstü İstemcisi ###########
+sed -i 's+Name\[tr\]=KRDC+Name\[tr\]=Uzak Masaüstü İstemcisi+g' /usr/share/applications/org.kde.krdc.desktop
+sed -i 's+Icon=.*+Icon=preferences-desktop-remote-desktop+g' /usr/share/applications/org.kde.krdc.desktop
+
+################### Sistem Bilgileri ###########
+hardinfo_file1=$(less /usr/share/applications/hardinfo.desktop |grep -F Name[tr] | wc -l)
+if [ "$hardinfo_file1" -lt "1" ] ; then
+echo """Name[tr]=Sistem Bilgileri
+""" >> /usr/share/applications/hardinfo.desktop
+else 
+echo ok
+fi
+
+########## Belge Tarayıcısı #########
+cp -r /tmp/afad-desktop-tema/simple-scan.desktop /usr/share/applications/simple-scan.desktop
+
+################### uGet ###########
+uget_gtk_file1=$(less /usr/share/applications/uget-gtk.desktop |grep -F Name[tr] | wc -l)
+if [ "$uget_gtk_file1" -lt "1" ] ; then
+echo """Name[tr]=uGet - İndirme Yöneticisi
+""" >> /usr/share/applications/uget-gtk.desktop
+else 
+echo ok
+fi
+################### galculator ###########
+galculator_file1=$(less /usr/share/applications/galculator.desktop |grep -F Name[tr] | wc -l)
+if [ "$galculator_file1" -lt "1" ] ; then
+echo """Name[tr]=Hesap Makinesi
+""" >> /usr/share/applications/galculator.desktop
+else 
+echo ok
+fi
+
+############### kdenlive #########
+sed -i 's+Name\[tr\]=Kdenlive+Name\[tr\]=Video Düzenleyici+g' /usr/share/applications/org.kde.kdenlive.desktop
+
+########## Kazam ##########################
+sed -i 's+Name\[tr\]=Kazam+Name\[tr\]=Ekran Video Kaydı+g' /usr/share/applications/kazam.desktop
+
+############## burada terminal aç icon değişimi #########
+sed -i 's+<icon>Terminal</icon>+<icon>utilities-terminal</icon>+g' /etc/xdg/pardus/Thunar/uca.xml
+
+cd /tmp
+rm -r /tmp/afad-app-fix
