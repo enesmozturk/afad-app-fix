@@ -1,0 +1,16 @@
+
+[gtkui]
+column_widths=10,275,175,10,175,175,10,100,39,10,275,275,275,10,275
+player_x=0
+player_y=0
+
+[gtkui-layout]
+item_count=0
+
+[skins]
+mainwin_font=Sans Bold 10
+playlist_font=Sans Bold 10
+playlist_visible=TRUE
+playlist_x=20
+playlist_y=136
+skin=/usr/share/audacious/Skins/Refugee

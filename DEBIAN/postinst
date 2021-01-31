@@ -107,8 +107,5 @@ sed -i 's+Name\[tr\]=Kdenlive+Name\[tr\]=Video Düzenleyici+g' /usr/share/applic
 ########## Kazam ##########################
 sed -i 's+Name\[tr\]=Kazam+Name\[tr\]=Ekran Video Kaydı+g' /usr/share/applications/kazam.desktop
 
-############## burada terminal aç icon değişimi #########
-sed -i 's+<icon>Terminal</icon>+<icon>utilities-terminal</icon>+g' /etc/xdg/pardus/Thunar/uca.xml
-
 cd /tmp
 rm -r /tmp/afad-app-fix
