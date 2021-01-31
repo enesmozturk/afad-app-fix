@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Categories=Network;Application;
+Name=Afad-VPN
+Comment=Afad VPN Uygulaması openconnect
+Exec=sudo /opt/afad/openconnect/openconnect --protocol=gp merkez.afad.gov.tr
+Icon=cs-network
+Path=
+Terminal=true
+StartupNotify=false
