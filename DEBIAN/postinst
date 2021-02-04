@@ -39,7 +39,12 @@ cp afad-vpn.desktop /usr/share/applications/
 cp afad-vpn.sh /opt/afad/
 chmod 777 /opt/afad/afad-vpn.sh
 ############ Normal kullanıcılara VPN Çalıştırma yetkisi ############################
+sudoers_file1=$(less /etc/sudoers |grep openconnect | wc -l)
+if [ "$sudoers_file1" -lt "1" ] ; then
 echo 'ALL ALL= NOPASSWD: /opt/afad/openconnect/openconnect' | sudo EDITOR='tee -a' visudo
+else 
+echo sudoers-ok
+fi
 #####################################################################################
 #####################################################################################
 ##########################   Uygulama isimleri ######################################
