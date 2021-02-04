@@ -36,6 +36,8 @@ mv openconnect-master openconnect
 cp -r openconnect /opt/afad/
 chmod 777 -R /opt/afad/openconnect
 cp afad-vpn.desktop /usr/share/applications/
+cp afad-vpn.sh /opt/afad/
+chmod 777 /opt/afad/afad-vpn.sh
 ############ Normal kullanıcılara VPN Çalıştırma yetkisi ############################
 echo 'ALL ALL= NOPASSWD: /opt/afad/openconnect/openconnect' | sudo EDITOR='tee -a' visudo
 #####################################################################################

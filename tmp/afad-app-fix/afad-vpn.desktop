@@ -4,7 +4,7 @@ Type=Application
 Categories=Network;Application;
 Name=Afad - VPN
 Comment=Afad VPN Uygulaması openconnect
-Exec=sudo /opt/afad/openconnect/openconnect --protocol=gp merkez.afad.gov.tr
+Exec=/opt/afad/afad-vpn.sh
 Icon=network-workgroup
 Path=
 Terminal=true
