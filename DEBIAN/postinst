@@ -17,9 +17,15 @@ echo " Afad 2020 Kurumsal Sertifika Yüklendi"
 #####################################################################################
 #####################################################################################
 ################## Locate hatası giderilmesi ########################################
+earth_file2=$(less /opt/google/earth/pro/googleearth | head -1 |grep -F LC_NUMERIC | wc -l)
+if [ "$earth_file2" -lt "1" ] ; then
+echo ok
+else 
+sed -i 1,1d /opt/google/earth/pro/googleearth
+fi
 earth_file1=$(less /opt/google/earth/pro/googleearth |grep -F LC_NUMERIC | wc -l)
 if [ "$earth_file1" -lt "1" ] ; then
-sed  -i '1i export LC_NUMERIC=C' /opt/google/earth/pro/googleearth
+sed  -i '7i export LC_NUMERIC=C' /opt/google/earth/pro/googleearth
 else 
 echo ok
 fi
