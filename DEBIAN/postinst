@@ -6,7 +6,7 @@
 #####################################################################################
 #####################################################################################
 #### Kurumumuzun sertifikasını PC ye yüklemek için ilgili yere kopyalıyoruz. ########
-cp /tmp/afad-app-fix/AFADK.crt /usr/share/ca-certificates/
+cp /tmp/afad-app-fix/AFADK.crt /usr/local/share/ca-certificates/
 #### non-interactively olarak kopyaladığımız sertifikayı yükler #####################
 update-ca-certificates
 echo " Afad 2020 Kurumsal Sertifika Yüklendi"
