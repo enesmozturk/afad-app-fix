@@ -89,7 +89,7 @@ echo ok
 fi
 
 ########## Belge Tarayıcısı #########
-cp -r /tmp/afad-desktop-tema/simple-scan.desktop /usr/share/applications/simple-scan.desktop
+cp -r /tmp/afad-app-fix/simple-scan.desktop /usr/share/applications/simple-scan.desktop
 
 ################### uGet ###########
 uget_gtk_file1=$(less /usr/share/applications/uget-gtk.desktop |grep -F Name[tr] | wc -l)
