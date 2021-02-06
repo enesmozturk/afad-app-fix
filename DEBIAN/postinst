@@ -101,6 +101,12 @@ sed -i 's+Name\[tr\]=Kazam+Name\[tr\]=Ekran Video Kaydı+g' /usr/share/applicati
 ########### mugshot---hakkında yardım link değişimi ################################################
 sed -i 's+show_uri(self, "https://wiki.bluesabre.org/doku.php?id=mugshot-docs")+show_uri(self, "https://pardus.org.tr/sss")+g' /usr/lib/python3/dist-packages/mugshot_lib/Window.py
 
+########## org.gnome.Usage #########
+cp /tmp/afad-app-fix/org.gnome.Usage.desktop /usr/share/applications/
+
+########## gnome-system-monitor #########
+cp /tmp/afad-app-fix/gnome-system-monitor.desktop /usr/share/applications/
+
 
 cd /tmp
 rm -r /tmp/afad-app-fix
