@@ -185,6 +185,7 @@ Comment[zh_TW]=顯示目前的程序並監控系統的狀態
 TryExec=gnome-system-monitor
 Exec=gnome-system-monitor
 # Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+Icon=Icon=gnome-system-monitor
 Icon[cs]=gnome-system-monitor
 Icon[da]=gnome-system-monitor
 Icon[de]=gnome-system-monitor
@@ -207,9 +208,8 @@ Icon[pt_BR]=gnome-system-monitor
 Icon[ro]=gnome-system-monitor
 Icon[sl]=gnome-system-monitor
 Icon[sv]=gnome-system-monitor
-Icon[tr]=gnome-system-monitor
+Icon[tr]=utilities-system-monitor
 Icon[zh_TW]=gnome-system-monitor
-Icon=gnome-system-monitor
 Terminal=false
 Type=Application
 StartupNotify=true
