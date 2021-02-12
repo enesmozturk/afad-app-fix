@@ -30,6 +30,26 @@ else
 echo ok
 fi
 #####################################################################################
+###############################Samba ayari###########################################
+smb_file1=$(less /etc/samba/smb.conf |grep paylas* | wc -l)
+if [ "$smb_file1" -lt "1" ] ; then
+echo ok
+else 
+echo """    
+	[paylas]
+    comment = Dosya paylasimi
+    path = /home/paylas/
+    browseable = yes
+    guest ok = yes
+    read only = no
+    public = yes
+    writable = yes
+
+""" >> /etc/samba/smb.conf
+fi
+
+
+#####################################################################################
 #####################################################################################
 ##########################   Uygulama isimleri ######################################
 #####################################################################################
@@ -106,6 +126,13 @@ cp /tmp/afad-app-fix/org.gnome.Usage.desktop /usr/share/applications/
 
 ########## gnome-system-monitor #########
 cp /tmp/afad-app-fix/gnome-system-monitor.desktop /usr/share/applications/
+
+########## İcon düzeltme #########
+cp	/usr/share/icons/pardus/24x24/apps/pardus-about.svg	/usr/share/icons/Windows-10-master/24x24/apps/pardus-about.svg
+cp	/usr/share/icons/pardus/48x48/apps/pardus-about.svg	/usr/share/icons/Windows-10-master/48x48/apps/pardus-about.svg
+cp	/usr/share/icons/pardus/22x22/apps/pardus-about.svg	/usr/share/icons/Windows-10-master/22x22/apps/pardus-about.svg
+cp	/usr/share/icons/pardus/32x32/apps/pardus-about.svg	/usr/share/icons/Windows-10-master/32x32/apps/pardus-about.svg
+cp	/usr/share/icons/pardus/16x16/apps/pardus-about.svg	/usr/share/icons/Windows-10-master/16x16/apps/pardus-about.svg
 
 
 cd /tmp
