@@ -33,8 +33,6 @@ fi
 ###############################Samba ayari###########################################
 smb_file1=$(less /etc/samba/smb.conf |grep paylas* | wc -l)
 if [ "$smb_file1" -lt "1" ] ; then
-echo ok
-else 
 echo """    
 	[paylas]
     comment = Dosya paylasimi
@@ -46,6 +44,8 @@ echo """
     writable = yes
 
 """ >> /etc/samba/smb.conf
+else 
+echo ok
 fi
 
 
