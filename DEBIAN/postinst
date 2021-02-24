@@ -127,6 +127,9 @@ cp /tmp/afad-app-fix/org.gnome.Usage.desktop /usr/share/applications/
 ########## gnome-system-monitor #########
 cp /tmp/afad-app-fix/gnome-system-monitor.desktop /usr/share/applications/
 
+########## Xfburn ##########################
+sed -i 's+Name\[tr\]=Xfburn+Name\[tr\]=CD-DVD YAZICI+g' /usr/share/applications/xfburn.desktop
+
 
 cd /tmp
 rm -r /tmp/afad-app-fix
