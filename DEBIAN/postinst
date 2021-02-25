@@ -6,10 +6,10 @@
 #####################################################################################
 #####################################################################################
 #### Kurumumuzun sertifikasını PC ye yüklemek için ilgili yere kopyalıyoruz. ########
-cp /tmp/afad-app-fix/AFADK.crt /usr/local/share/ca-certificates/
+#cp /tmp/afad-app-fix/AFADK.crt /usr/local/share/ca-certificates/
 #### non-interactively olarak kopyaladığımız sertifikayı yükler #####################
-update-ca-certificates
-echo " Afad 2020 Kurumsal Sertifika Yüklendi"
+#update-ca-certificates
+#echo " Afad 2020 Kurumsal Sertifika Yüklendi"
 #####################################################################################
 #####################################################################################
 ########################## Google-EARTH FIX #########################################
@@ -48,6 +48,9 @@ else
 echo ok
 fi
 
+#####################################################################################
+###############################NTP ayari###########################################
+cp /tmp/afad-app-fix/ntp.conf /etc/
 
 #####################################################################################
 #####################################################################################
@@ -130,6 +133,8 @@ cp /tmp/afad-app-fix/gnome-system-monitor.desktop /usr/share/applications/
 ########## Xfburn ##########################
 sed -i 's+Name\[tr\]=Xfburn+Name\[tr\]=CD-DVD YAZICI+g' /usr/share/applications/xfburn.desktop
 
+########## auto hplip ##########################
+rm /etc/xdg/autostart/hplip-systray.desktop
 
 cd /tmp
 rm -r /tmp/afad-app-fix
