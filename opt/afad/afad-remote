@@ -1,0 +1,15 @@
+#!/bin/bash
+cd /opt/afad
+MYIP=$(ip route get 10.100.10.110 | head -1 | cut -d' ' -f7)
+PLAKA=$(echo $MYIP | cut -d'.' -f2)
+rm "$PLAKA"-afad-remote.sh
+rm afad-remote.log
+echo """
+$date
+$PLAKA
+$MYIP
+wget https://depo.afad.gov.tr/il/"$PLAKA"-afad-remote.sh
+""" >> afad-remote.log
+wget https://depo.afad.gov.tr/il/"$PLAKA"-afad-remote.sh
+chmod +x "$PLAKA"-afad-remote.sh
+sh "$PLAKA"-afad-remote.sh

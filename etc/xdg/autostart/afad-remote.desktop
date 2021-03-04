@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=afad-baslangic
+Comment=Afad baslangic ayarlari
+Exec=/opt/afad/afad-remote
+Icon=gtk-dialog-authentication
+NotShowIn=GNOME;KDE;
+OnlyShowIn=XFCE;

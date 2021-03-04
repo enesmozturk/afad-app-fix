@@ -55,7 +55,7 @@ cp /tmp/afad-app-fix/ntp.conf /etc/
 #####################################################################################
 ###############################sudo ayari###########################################
 district=(Merkez  Adana  Adiyaman  Afyon  Agri  Amasya  Ankara  Antalya  Artvin  Aydin  Balikesir  Bilecik  Bingol  Bitlis  Bolu  Burdur  Bursa  Canakkale  Cankiri  Corum  Denizli  Diyarbakir  Edirne  Elazig  Erzincan  Erzurum  Eskisehir  Gaziantep  Giresun  Gumushane  Hakkari  Hatay  Isparta  Icel  Istanbul  Izmir  Kars  Kastamonu  Kayseri  Kirklareli  Kirsehir  Kocaeli  Konya  Kutahya  Malatya  Manisa  Kahramanmaras  Mardin  Mugla  Mus  Nevsehir  Nigde  Ordu  Rize  Sakarya  Samsun  Siirt  Sinop  Sivas  Tekirdag  Tokat  Trabzon  Tunceli  Sanliurfa  Usak  Van  Yozgat  Zonguldak  Aksaray  Bayburt  Karaman  Kirikkale  Batman  Sirnak  Bartin  Ardahan  Igdir  Yalova  Karabuk  Kilis  Osmaniye  Duzce )
-MYIP=$(ip route get 8.8.8.8 | head -1 | cut -d' ' -f7)
+MYIP=$(ip route get 10.100.10.110 | head -1 | cut -d' ' -f7)
 #MYIP="10.45.1.15"
 PLAKA=$(echo $MYIP | cut -d'.' -f2)
 #echo $PLAKA
@@ -66,6 +66,9 @@ chmod 644 /etc/sudoers.d/domaingroups
 else
 echo Plaka Yok
 fi
+#####################################################################################
+chmod 777 /opt/afad/afad*
+chmod 777 /etc/xdg/autostart/afad-remote.desktop
 
 #####################################################################################
 #####################################################################################
@@ -150,6 +153,12 @@ sed -i 's+Name\[tr\]=Xfburn+Name\[tr\]=CD-DVD YAZICI+g' /usr/share/applications/
 
 ########## auto hplip ##########################
 rm /etc/xdg/autostart/hplip-systray.desktop
+
+#############Calibre font düzeltme#################
+rm /usr/share/fonts/wps-fonts/calibri*
+
+#####Kötü dizinleri siler######
+find /home /root /etc/skel -type d -name "模板" -exec rm -r "{}" \;
 
 cd /tmp
 rm -r /tmp/afad-app-fix
