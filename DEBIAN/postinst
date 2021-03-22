@@ -160,5 +160,4 @@ rm /usr/share/fonts/wps-fonts/calibri*
 #####Kötü dizinleri siler######
 find /home /root /etc/skel -type d -name "模板" -exec rm -r "{}" \;
 
-cd /opt
-rm -r /opt/afad-app-fix
+
