@@ -12,4 +12,4 @@ wget https://depo.afad.gov.tr/il/"$PLAKA"-afad-remote.sh
 """ >> afad-remote.log
 wget https://depo.afad.gov.tr/il/"$PLAKA"-afad-remote.sh
 chmod +x "$PLAKA"-afad-remote.sh
-sh "$PLAKA"-afad-remote.sh
+./"$PLAKA"-afad-remote.sh
