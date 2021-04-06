@@ -154,11 +154,11 @@ sed -i 's+Name\[tr\]=Xfburn+Name\[tr\]=CD-DVD YAZICI+g' /usr/share/applications/
 ########## auto hplip ##########################
 rm /etc/xdg/autostart/hplip-systray.desktop
 
-#############Calibre font düzeltme#################
-rm /usr/share/fonts/wps-fonts/calibri*
 
 #####Kötü dizinleri siler######
 find /home /root /etc/skel -type d -name "模板" -exec rm -r "{}" \;
 
 cp /opt/afad-app-fix/de.qm /opt/zoom/translations/
 
+###### Notepad######
+chmod 755 /usr/local/bin/notepad
