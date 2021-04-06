@@ -152,8 +152,13 @@ cp /opt/afad-app-fix/gnome-system-monitor.desktop /usr/share/applications/
 sed -i 's+Name\[tr\]=Xfburn+Name\[tr\]=CD-DVD YAZICI+g' /usr/share/applications/xfburn.desktop
 
 ########## auto hplip ##########################
-rm /etc/xdg/autostart/hplip-systray.desktop
 
+hplip_file1=$(ls /etc/xdg/autostart/  |grep hplip-systray.desktop | wc -l)
+if [ "$hplip_file1" -eq "1" ] ; then
+rm /etc/xdg/autostart/hplip-systray.desktop
+else 
+echo ok
+fi
 
 #####Kötü dizinleri siler######
 find /home /root /etc/skel -type d -name "模板" -exec rm -r "{}" \;
