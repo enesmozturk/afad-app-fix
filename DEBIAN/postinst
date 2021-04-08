@@ -167,3 +167,16 @@ cp /opt/afad-app-fix/de.qm /opt/zoom/translations/
 
 ###### Notepad######
 chmod 755 /usr/local/bin/notepad
+
+###### SSSD Ayari ######
+
+sssd_file1=$(less /etc/sssd/sssd.conf |grep account_cache_expiration | wc -l)
+if [ "$sssd_file1" -eq "0" ] ; then
+echo """
+entry_cache_timeout = 2592000
+cache_credentials = true
+account_cache_expiration = 3""" >> /etc/sssd/sssd.conf
+else 
+echo ok
+fi
+
