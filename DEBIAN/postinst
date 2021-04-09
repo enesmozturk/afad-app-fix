@@ -23,9 +23,10 @@ echo ok
 else 
 sed -i 1,1d /opt/google/earth/pro/googleearth
 fi
-earth_file1=$(less /opt/google/earth/pro/googleearth |grep -F LC_NUMERIC | wc -l)
+earth_file1=$(less /opt/google/earth/pro/googleearth |grep -F LC_ALL | wc -l)
 if [ "$earth_file1" -lt "1" ] ; then
-sed  -i '7i export LC_NUMERIC=C' /opt/google/earth/pro/googleearth
+sed  -i '7i export LC_ALL=en_US.UTF-8' /opt/google/earth/pro/googleearth
+sed  -i '7i export LANGUAGE="tr_TR.UTF-8"' /opt/google/earth/pro/googleearth
 else 
 echo ok
 fi
