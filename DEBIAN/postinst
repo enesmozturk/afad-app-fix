@@ -192,7 +192,13 @@ fi
 #####Kötü dizinleri siler######
 find /home /root /etc/skel -type d -name "模板" -exec rm -r "{}" \;
 
+#####Zoom Dil ayarı######
 cp /opt/afad-app-fix/de.qm /opt/zoom/translations/
+echo """language=de""" > /etc/skel/.config/zoomus.conf
+find /home -type d -name ".config" -exec cp  /etc/skel/.config/zoomus.conf "{}"/ \;
+######ilerde bunu sil########
+
+
 
 ###### Notepad######
 chmod 755 /usr/local/bin/notepad
