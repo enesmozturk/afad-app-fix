@@ -207,10 +207,10 @@ chmod 755 /usr/local/bin/notepad
 
 sssd_file1=$(less /etc/sssd/sssd.conf |grep account_cache_expiration | wc -l)
 if [ "$sssd_file1" -eq "0" ] ; then
-echo """
-entry_cache_timeout = 2592000
-cache_credentials = true
-account_cache_expiration = 3""" >> /etc/sssd/sssd.conf
+echo "" >> /etc/sssd/sssd.conf
+sed  -i '23i entry_cache_timeout = 2592000' /etc/sssd/sssd.conf
+sed  -i '24i cache_credentials = true' /etc/sssd/sssd.conf
+sed  -i '25i account_cache_expiration = 3' /etc/sssd/sssd.conf
 else 
 echo ok
 fi
