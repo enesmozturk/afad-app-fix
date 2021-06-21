@@ -189,6 +189,15 @@ else
 echo ok
 fi
 
+########## auto pk-update-icon ##########################
+
+pkupdate_file1=$(ls /etc/xdg/autostart/  |grep pk-update-icon.desktop | wc -l)
+if [ "$pkupdate_file1" -eq "1" ] ; then
+rm /etc/xdg/autostart/pk-update-icon.desktop
+else 
+echo ok
+fi
+
 #####Kötü dizinleri siler######
 find /home /root /etc/skel -type d -name "模板" -exec rm -r "{}" \;
 
