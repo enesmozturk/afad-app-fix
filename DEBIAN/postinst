@@ -224,3 +224,7 @@ else
 echo ok
 fi
 
+#######chrome depo######
+echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+#######Opera depo######
+echo "deb http://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera-stable.list && wget -O - http://deb.opera.com/archive.key | sudo apt-key add - && echo ok-opera
