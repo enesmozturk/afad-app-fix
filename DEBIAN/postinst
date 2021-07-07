@@ -228,4 +228,9 @@ fi
 echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 #######Opera depo######
 ###echo "deb http://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera-stable.list && wget -O - http://deb.opera.com/archive.key | sudo apt-key add - && echo ok-opera
+opera_file1=$(ls /etc/apt/sources.list.d/  |grep opera | wc -l)
+if [ "$opera_file1" -eq "1" ] ; then
 rm /etc/apt/sources.list.d/opera*
+else 
+echo ok
+fi
