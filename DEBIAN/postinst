@@ -17,18 +17,22 @@
 #####################################################################################
 #####################################################################################
 ################## Locate hatası giderilmesi ########################################
+if [ -f /opt/google/earth/pro/googleearth ] ; then
 earth_file2=$(less /opt/google/earth/pro/googleearth | head -1 |grep -F LC_NUMERIC | wc -l)
-if [ "$earth_file2" -lt "1" ] ; then
-echo ok
-else 
-sed -i 1,1d /opt/google/earth/pro/googleearth
-fi
+    if [ "$earth_file2" -lt "1" ] ; then
+        echo ok
+    else 
+    sed -i 1,1d /opt/google/earth/pro/googleearth
+    fi
 earth_file1=$(less /opt/google/earth/pro/googleearth |grep -F LC_ALL | wc -l)
-if [ "$earth_file1" -lt "1" ] ; then
-sed  -i '7i export LC_ALL=en_US.UTF-8' /opt/google/earth/pro/googleearth
-sed  -i '7i export LANGUAGE="tr_TR.UTF-8"' /opt/google/earth/pro/googleearth
-else 
-echo ok
+    if [ "$earth_file1" -lt "1" ] ; then
+    sed  -i '7i export LC_ALL=en_US.UTF-8' /opt/google/earth/pro/googleearth
+    sed  -i '7i export LANGUAGE="tr_TR.UTF-8"' /opt/google/earth/pro/googleearth
+    else 
+    echo ok
+    fi
+else
+echo "googleearth yüklü degil"
 fi
 #####################################################################################
 ################## Kesenek için thunar custom action ########################################
@@ -60,41 +64,48 @@ fi
 
 #####################################################################################
 ###############################Samba ayari###########################################
-smb_file1=$(less /etc/samba/smb.conf |grep paylas* | wc -l)
-if [ "$smb_file1" -lt "1" ] ; then
-echo """    
-	[paylas]
-    comment = Dosya paylasimi
-    path = /home/paylas/
-    browseable = yes
-    guest ok = yes
-    read only = no
-    public = yes
-    writable = yes
+if [ -f /etc/samba/smb.conf ] ; then
+    smb_file1=$(less /etc/samba/smb.conf |grep paylas* | wc -l)
+    if [ "$smb_file1" -lt "1" ] ; then
+    echo """    
+        [paylas]
+        comment = Dosya paylasimi
+        path = /home/paylas/
+        browseable = yes
+        guest ok = yes
+        read only = no
+        public = yes
+        writable = yes
 
-""" >> /etc/samba/smb.conf
-else 
-echo ok
+    """ >> /etc/samba/smb.conf
+    else 
+    echo ok
+    fi
+else
+echo "samba yüklü degil"
 fi
-
 #####################################################################################
 ###############################NTP ayari###########################################
+if [ -f /etc/ntp.conf ] ; then
 cp /opt/afad-app-fix/ntp.conf /etc/
-
-#####################################################################################
-###############################sudo ayari###########################################
-district=(Merkez  Adana  Adiyaman  Afyon  Agri  Amasya  Ankara  Antalya  Artvin  Aydin  Balikesir  Bilecik  Bingol  Bitlis  Bolu  Burdur  Bursa  Canakkale  Cankiri  Corum  Denizli  Diyarbakir  Edirne  Elazig  Erzincan  Erzurum  Eskisehir  Gaziantep  Giresun  Gumushane  Hakkari  Hatay  Isparta  Icel  Istanbul  Izmir  Kars  Kastamonu  Kayseri  Kirklareli  Kirsehir  Kocaeli  Konya  Kutahya  Malatya  Manisa  Kahramanmaras  Mardin  Mugla  Mus  Nevsehir  Nigde  Ordu  Rize  Sakarya  Samsun  Siirt  Sinop  Sivas  Tekirdag  Tokat  Trabzon  Tunceli  Sanliurfa  Usak  Van  Yozgat  Zonguldak  Aksaray  Bayburt  Karaman  Kirikkale  Batman  Sirnak  Bartin  Ardahan  Igdir  Yalova  Karabuk  Kilis  Osmaniye  Duzce )
-MYIP=$(ip route get 10.100.10.110 | head -1 | cut -d' ' -f7)
-#MYIP="10.45.1.15"
-PLAKA=$(echo $MYIP | cut -d'.' -f2)
-#echo $PLAKA
-if [ "$PLAKA" -lt "82" ] ; then
-#echo ${district[$PLAKA]}
-echo "%gYT-"${district[$PLAKA]}"HelpDesk ALL=(ALL) ALL " > /etc/sudoers.d/domaingroups
-chmod 644 /etc/sudoers.d/domaingroups
 else
-echo Plaka Yok
+echo "ntp yüklü degil"
 fi
+#####################################################################################
+#echo "%domain\x20users ALL=(ALL) ALL " > /etc/sudoers.d/domainusers
+###############################sudo ayari###########################################
+#district=(Merkez  Adana  Adiyaman  Afyon  Agri  Amasya  Ankara  Antalya  Artvin  Aydin  Balikesir  Bilecik  Bingol  Bitlis  Bolu  Burdur  Bursa  Canakkale  Cankiri  Corum  Denizli  Diyarbakir  Edirne  Elazig  Erzincan  Erzurum  Eskisehir  Gaziantep  Giresun  Gumushane  Hakkari  Hatay  Isparta  Icel  Istanbul  Izmir  Kars  Kastamonu  Kayseri  Kirklareli  Kirsehir  Kocaeli  Konya  Kutahya  Malatya  Manisa  Kahramanmaras  Mardin  Mugla  Mus  Nevsehir  Nigde  Ordu  Rize  Sakarya  Samsun  Siirt  Sinop  Sivas  Tekirdag  Tokat  Trabzon  Tunceli  Sanliurfa  Usak  Van  Yozgat  Zonguldak  Aksaray  Bayburt  Karaman  Kirikkale  Batman  Sirnak  Bartin  Ardahan  Igdir  Yalova  Karabuk  Kilis  Osmaniye  Duzce )
+#MYIP=$(ip route get 10.100.10.110 | head -1 | cut -d' ' -f7)
+#MYIP="10.45.1.15"
+#PLAKA=$(echo $MYIP | cut -d'.' -f2)
+#echo $PLAKA
+#if [ "$PLAKA" -lt "82" ] ; then
+#echo ${district[$PLAKA]}
+#echo "%gYT-"${district[$PLAKA]}"HelpDesk ALL=(ALL) ALL " > /etc/sudoers.d/domaingroups
+#chmod 644 /etc/sudoers.d/domaingroups
+#else
+#echo Plaka Yok
+#fi
 #####################################################################################
 chmod 777 /opt/afad/afad*
 chmod 777 /etc/xdg/autostart/afad-remote.desktop
@@ -107,113 +118,152 @@ chmod 777 /etc/xdg/autostart/afad-remote.desktop
 #####################################################################################
 #####################################################################################
 ##################  Peynir isim düzeltme  ###########################################
-sed -i 's+Name\[tr\]=Peynir+Name\[tr\]=Webcam - Peynir+g' /usr/share/applications/org.gnome.Cheese.desktop
-
+if [ -f /usr/share/applications/org.gnome.Cheese.desktop ] ; then
+    sed -i 's+Name\[tr\]=Peynir+Name\[tr\]=Webcam - Peynir+g' /usr/share/applications/org.gnome.Cheese.desktop
+else
+echo "cheese-webcam yüklü degil"
+fi
 ##################Stacer Sistem Temizleme############################
-stacer_file1=$(less /usr/share/applications/stacer.desktop |grep -F Name[tr] | wc -l)
-if [ "$stacer_file1" -lt "1" ] ; then
-echo """Name[tr]=Sistem Temizleme
-""" >> /usr/share/applications/stacer.desktop
-else 
-echo ok
+if [ -f /usr/share/applications/stacer.desktop ] ; then
+    stacer_file1=$(less /usr/share/applications/stacer.desktop |grep -F Name[tr] | wc -l)
+    if [ "$stacer_file1" -lt "1" ] ; then
+    echo """Name[tr]=Sistem Temizleme
+    """ >> /usr/share/applications/stacer.desktop
+    else 
+    echo ok
+    fi
+    find /home -type d -name ".config" -exec cp -r /etc/skel/.config/stacer "{}"/ \;
+else
+echo "stacer yüklü degil"
 fi
-find /home -type d -name ".config" -exec cp -r /etc/skel/.config/stacer "{}"/ \;
-
 ################## Müzik Çalar ############################
-audacious_file1=$(less /usr/share/applications/audacious.desktop |grep -F Name[tr] | wc -l)
-if [ "$audacious_file1" -lt "2" ] ; then
-echo """Name[tr]=Müzik Çalar
-""" >> /usr/share/applications/audacious.desktop
-else 
-echo ok
+if [ -f /usr/share/applications/audacious.desktop ] ; then
+    audacious_file1=$(less /usr/share/applications/audacious.desktop |grep -F Name[tr] | wc -l)
+    if [ "$audacious_file1" -lt "2" ] ; then
+    echo """Name[tr]=Müzik Çalar
+    """ >> /usr/share/applications/audacious.desktop
+    else 
+    echo ok
+    fi
+    find /home -type d -name ".config" -exec cp -r /etc/skel/.config/audacious "{}"/ \;
+else
+echo "audacious yüklü degil"
 fi
-find /home -type d -name ".config" -exec cp -r /etc/skel/.config/audacious "{}"/ \;
-
 ################### Uzak Masaüstü İstemcisi ###########
-sed -i 's+Name\[tr\]=KRDC+Name\[tr\]=Uzak Masaüstü İstemcisi+g' /usr/share/applications/org.kde.krdc.desktop
-sed -i 's+Icon=.*+Icon=preferences-desktop-remote-desktop+g' /usr/share/applications/org.kde.krdc.desktop
-
+if [ -f /usr/share/applications/org.kde.krdc.desktop ] ; then
+    sed -i 's+Name\[tr\]=KRDC+Name\[tr\]=Uzak Masaüstü İstemcisi+g' /usr/share/applications/org.kde.krdc.desktop
+    sed -i 's+Icon=.*+Icon=preferences-desktop-remote-desktop+g' /usr/share/applications/org.kde.krdc.desktop
+else
+echo "krdc yüklü degil"
+fi
 ################### Sistem Bilgileri ###########
-hardinfo_file1=$(less /usr/share/applications/hardinfo.desktop |grep -F Name[tr] | wc -l)
-if [ "$hardinfo_file1" -lt "1" ] ; then
-echo """Name[tr]=Sistem Bilgileri
-""" >> /usr/share/applications/hardinfo.desktop
-else 
-echo ok
+if [ -f /usr/share/applications/hardinfo.desktop ] ; then
+    hardinfo_file1=$(less /usr/share/applications/hardinfo.desktop |grep -F Name[tr] | wc -l)
+    if [ "$hardinfo_file1" -lt "1" ] ; then
+    echo """Name[tr]=Sistem Bilgileri
+    """ >> /usr/share/applications/hardinfo.desktop
+    else 
+    echo ok
+    fi
+else
+echo "hardinfo yüklü degil"
 fi
-
 ########## Belge Tarayıcısı #########
-cp -r /opt/afad-app-fix/simple-scan.desktop /usr/share/applications/simple-scan.desktop
-
+if [ -f /usr/share/applications/simple-scan.desktop ] ; then
+    cp -r /opt/afad-app-fix/simple-scan.desktop /usr/share/applications/simple-scan.desktop
+else
+echo "simple-scan yüklü degil"
+fi
 ################### uGet ###########
-uget_gtk_file1=$(less /usr/share/applications/uget-gtk.desktop |grep -F Name[tr] | wc -l)
-if [ "$uget_gtk_file1" -lt "1" ] ; then
-echo """Name[tr]=uGet - İndirme Yöneticisi
-""" >> /usr/share/applications/uget-gtk.desktop
-else 
-echo ok
-fi
+#uget_gtk_file1=$(less /usr/share/applications/uget-gtk.desktop |grep -F Name[tr] | wc -l)
+#if [ "$uget_gtk_file1" -lt "1" ] ; then
+#echo """Name[tr]=uGet - İndirme Yöneticisi
+#""" >> /usr/share/applications/uget-gtk.desktop
+#else 
+#echo ok
+#fi
 ################### galculator ###########
-galculator_file1=$(less /usr/share/applications/galculator.desktop |grep -F Name[tr] | wc -l)
-if [ "$galculator_file1" -lt "1" ] ; then
-echo """Name[tr]=Hesap Makinesi
-""" >> /usr/share/applications/galculator.desktop
-else 
-echo ok
+if [ -f /usr/share/applications/galculator.desktop ] ; then
+    galculator_file1=$(less /usr/share/applications/galculator.desktop |grep -F Name[tr] | wc -l)
+    if [ "$galculator_file1" -lt "1" ] ; then
+    echo """Name[tr]=Hesap Makinesi
+    """ >> /usr/share/applications/galculator.desktop
+    else 
+    echo ok
+    fi
+else
+echo "galculator yüklü degil"
 fi
-
 ############### kdenlive #########
-sed -i 's+Name\[tr\]=Kdenlive+Name\[tr\]=Video Düzenleyici+g' /usr/share/applications/org.kde.kdenlive.desktop
-
+if [ -f /usr/share/applications/org.kde.kdenlive.desktop ] ; then
+    sed -i 's+Name\[tr\]=Kdenlive+Name\[tr\]=Video Düzenleyici+g' /usr/share/applications/org.kde.kdenlive.desktop
+else
+echo "kdenlive yüklü degil"
+fi
 ########## Kazam ##########################
-sed -i 's+Name\[tr\]=Kazam+Name\[tr\]=Ekran Video Kaydı+g' /usr/share/applications/kazam.desktop
-
+if [ -f /usr/share/applications/kazam.desktop ] ; then
+    sed -i 's+Name\[tr\]=Kazam+Name\[tr\]=Ekran Video Kaydı+g' /usr/share/applications/kazam.desktop
+else
+echo "kazam yüklü degil"
+fi
 ########### mugshot---hakkında yardım link değişimi ################################################
-sed -i 's+show_uri(self, "https://wiki.bluesabre.org/doku.php?id=mugshot-docs")+show_uri(self, "https://pardus.org.tr/sss")+g' /usr/lib/python3/dist-packages/mugshot_lib/Window.py
+#sed -i 's+show_uri(self, "https://wiki.bluesabre.org/doku.php?id=mugshot-docs")+show_uri(self, "https://pardus.org.tr/sss")+g' /usr/lib/python3/dist-packages/mugshot_lib/Window.py
 
 ########## org.gnome.Usage #########
-cp /opt/afad-app-fix/org.gnome.Usage.desktop /usr/share/applications/
-
+if [ -f /usr/share/applications/org.gnome.Usage.desktop ] ; then
+    cp /opt/afad-app-fix/org.gnome.Usage.desktop /usr/share/applications/
+else
+echo "org.gnome.Usage.desktop yüklü degil"
+fi
 ########## gnome-system-monitor #########
-cp /opt/afad-app-fix/gnome-system-monitor.desktop /usr/share/applications/
-
+if [ -f /usr/share/applications/gnome-system-monitor.desktop ] ; then
+    cp /opt/afad-app-fix/gnome-system-monitor.desktop /usr/share/applications/
+else
+echo "gnome-system-monitor.desktop yüklü degil"
+fi
 ########## Xfburn ##########################
+if [ -f /usr/share/applications/xfburn.desktop ] ; then
 sed -i 's+Name\[tr\]=Xfburn+Name\[tr\]=CD-DVD YAZICI+g' /usr/share/applications/xfburn.desktop
-
+else
+echo "xfburn yüklü degil"
+fi
 ########## auto hplip ##########################
-
-hplip_file1=$(ls /etc/xdg/autostart/  |grep hplip-systray.desktop | wc -l)
-if [ "$hplip_file1" -eq "1" ] ; then
-rm /etc/xdg/autostart/hplip-systray.desktop
-else 
-echo ok
+if [ -f /etc/xdg/autostart/hplip-systray.desktop ] ; then
+    hplip_file1=$(ls /etc/xdg/autostart/  |grep hplip-systray.desktop | wc -l)
+    if [ "$hplip_file1" -eq "1" ] ; then
+    rm /etc/xdg/autostart/hplip-systray.desktop
+    else 
+    echo ok
+    fi
+else
+echo "hplip startup degil"
 fi
-
 ########## auto pk-update-icon ##########################
-
-pkupdate_file1=$(ls /etc/xdg/autostart/  |grep pk-update-icon.desktop | wc -l)
-if [ "$pkupdate_file1" -eq "1" ] ; then
-rm /etc/xdg/autostart/pk-update-icon.desktop
-else 
-echo ok
+if [ -f /etc/xdg/autostart/pk-update-icon.desktop ] ; then
+    pkupdate_file1=$(ls /etc/xdg/autostart/  |grep pk-update-icon.desktop | wc -l)
+    if [ "$pkupdate_file1" -eq "1" ] ; then
+    rm /etc/xdg/autostart/pk-update-icon.desktop
+    else 
+    echo ok
+    fi
+else
+echo "pk-update-icon startup degil"
 fi
-
 #####Kötü dizinleri siler######
 find /home /root /etc/skel -type d -name "模板" -exec rm -r "{}" \;
 
 #####Zoom Dil ayarı######
-cp /opt/afad-app-fix/de.qm /opt/zoom/translations/
-echo """language=de""" > /etc/skel/.config/zoomus.conf
-find /home -type d -name ".config" -exec cp  /etc/skel/.config/zoomus.conf "{}"/ \;
+#cp /opt/afad-app-fix/de.qm /opt/zoom/translations/
+#echo """language=de""" > /etc/skel/.config/zoomus.conf
+#find /home -type d -name ".config" -exec cp  /etc/skel/.config/zoomus.conf "{}"/ \;
 ######ilerde bunu sil########
 
 
 
 ###### Notepad######
-chmod 755 /usr/local/bin/notepad
+#chmod 755 /usr/local/bin/notepad
 
 ###### SSSD Ayari ######
-
 sssd_file1=$(less /etc/sssd/sssd.conf |grep account_cache_expiration | wc -l)
 if [ "$sssd_file1" -eq "0" ] ; then
 echo "" >> /etc/sssd/sssd.conf
@@ -225,12 +275,17 @@ echo ok
 fi
 
 #######chrome depo######
-echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+#echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 #######Opera depo######
 ###echo "deb http://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera-stable.list && wget -O - http://deb.opera.com/archive.key | sudo apt-key add - && echo ok-opera
-opera_file1=$(ls /etc/apt/sources.list.d/  |grep opera | wc -l)
-if [ "$opera_file1" -eq "1" ] ; then
-rm /etc/apt/sources.list.d/opera*
-else 
-echo ok
-fi
+#opera_file1=$(ls /etc/apt/sources.list.d/  |grep opera | wc -l)
+#if [ "$opera_file1" -eq "1" ] ; then
+#rm /etc/apt/sources.list.d/opera*
+#else 
+#echo ok
+#fi
+#######pkexec icin yetki verme######
+echo """[Configuration]
+AdminIdentities=unix-group:sudo;unix-group:domain users
+""" > /etc/polkit-1/localauthority.conf.d/51-debian-sudo.conf
+###################################################

@@ -1,1 +1,0 @@
-LC_CTYPE=tr_TR.UTF-8 wine notepad.exe $1
