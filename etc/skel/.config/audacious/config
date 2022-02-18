@@ -8,9 +8,10 @@ player_y=0
 item_count=0
 
 [skins]
-mainwin_font=Sans Bold 10
-playlist_font=Sans Bold 10
+double_size=TRUE
+mainwin_font=Sans Bold 12
+playlist_font=Sans Bold 12
 playlist_visible=TRUE
 playlist_x=20
 playlist_y=136
-skin=/usr/share/audacious/Skins/Refugee
+skin=/usr/share/audacious/Skins/winamp_classic

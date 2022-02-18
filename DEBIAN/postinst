@@ -138,6 +138,7 @@ echo "stacer yüklü degil"
 fi
 ################## Müzik Çalar ############################
 if [ -f /usr/share/applications/audacious.desktop ] ; then
+    cp -r /opt/afad-app-fix/audacious/Skins/winamp_classic /usr/share/audacious/Skins/
     audacious_file1=$(less /usr/share/applications/audacious.desktop |grep -F Name[tr] | wc -l)
     if [ "$audacious_file1" -lt "2" ] ; then
     echo """Name[tr]=Müzik Çalar
@@ -264,16 +265,19 @@ find /home /root /etc/skel -type d -name "模板" -exec rm -r "{}" \;
 #chmod 755 /usr/local/bin/notepad
 
 ###### SSSD Ayari ######
-sssd_file1=$(less /etc/sssd/sssd.conf |grep account_cache_expiration | wc -l)
-if [ "$sssd_file1" -eq "0" ] ; then
-echo "" >> /etc/sssd/sssd.conf
-sed  -i '23i entry_cache_timeout = 2592000' /etc/sssd/sssd.conf
-sed  -i '24i cache_credentials = true' /etc/sssd/sssd.conf
-sed  -i '25i account_cache_expiration = 3' /etc/sssd/sssd.conf
-else 
-echo ok
+if [ -f /etc/sssd/sssd.conf ] ; then
+    sssd_file1=$(less /etc/sssd/sssd.conf |grep account_cache_expiration | wc -l)
+    if [ "$sssd_file1" -eq "0" ] ; then
+    echo "" >> /etc/sssd/sssd.conf
+    sed  -i '23i entry_cache_timeout = 2592000' /etc/sssd/sssd.conf
+    sed  -i '24i cache_credentials = true' /etc/sssd/sssd.conf
+    sed  -i '25i account_cache_expiration = 3' /etc/sssd/sssd.conf
+    else 
+    echo ok
+    fi
+else
+echo "sssd yüklü degil"
 fi
-
 #######chrome depo######
 #echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 #######Opera depo######
@@ -289,3 +293,11 @@ echo """[Configuration]
 AdminIdentities=unix-group:sudo;unix-group:domain users
 """ > /etc/polkit-1/localauthority.conf.d/51-debian-sudo.conf
 ###################################################
+
+########## opera ##########################
+if [ -f /usr/share/applications/opera.desktop ] ; then
+cp -r /opt/afad-app-fix/opera.desktop /usr/share/applications/opera.desktop
+cp -r /opt/afad-app-fix/opera.desktop /etc/skel/Masaüstü/opera.desktop
+else
+echo "opera yüklü degil"
+fi
