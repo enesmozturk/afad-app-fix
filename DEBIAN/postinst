@@ -298,6 +298,25 @@ AdminIdentities=unix-group:sudo;unix-group:domain users
 if [ -f /usr/share/applications/opera.desktop ] ; then
 cp -r /opt/afad-app-fix/opera.desktop /usr/share/applications/opera.desktop
 cp -r /opt/afad-app-fix/opera.desktop /etc/skel/Masaüstü/opera.desktop
+find /home -type d -name "Masaüstü" -exec cp -r /etc/skel/Masaüstü/opera.desktop "{}"/ \;
+find /home -type d -name "Masaüstü" -exec chmod 777 -R "{}"/opera.desktop \;
 else
 echo "opera yüklü degil"
 fi
+###########pardus-welcome ayarı için###############################
+if [ -f /usr/share/pardus/pardus-welcome/src/MainWindow.py ] && [ -d /usr/share/themes/Windows-10-master ]  ; then
+#sed -i 's+GLib.idle_add(ThemeManager.setTheme, "pardus")+GLib.idle_add(ThemeManager.setTheme, "pardus")+g' /usr/share/pardus/pardus-welcome/src/MainWindow.py
+sed -i 's+GLib.idle_add(ThemeManager.setIconTheme, "pardus")+GLib.idle_add(ThemeManager.setIconTheme, "Windows-10-master")+g' /usr/share/pardus/pardus-welcome/src/MainWindow.py
+sed -i 's+GLib.idle_add(ThemeManager.setWindowTheme, "pardus-default")+GLib.idle_add(ThemeManager.setWindowTheme, "Windows-10-master")+g' /usr/share/pardus/pardus-welcome/src/MainWindow.py
+cp /usr/share/images/desktop-base/afad* /usr/share/backgrounds/
+else
+echo "pardus-welcome yüklü degil"
+fi
+###########baobab-computer ayarı için###############################
+#if [ -f /usr/share/applications/org.gnome.baobab.desktop ] ; then
+#cp -r /opt/afad-app-fix/computer.desktop /etc/skel/Masaüstü/
+#find /home -type d -name "Masaüstü" -exec cp -r /etc/skel/Masaüstü/computer.desktop "{}"/ \;
+#find /home -type d -name "Masaüstü" -exec chmod 777 -R "{}"/computer.desktop \;
+#else
+#echo "baobab yuklu degil"
+#fi
