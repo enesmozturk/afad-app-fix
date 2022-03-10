@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Categories=Network;Application;
+Name=Afad - Hakkında
+Comment=Afad Hakkında Uygulaması
+Exec=afad
+Icon=emblem-pardus-white
+Path=
+Terminal=true
+StartupNotify=false

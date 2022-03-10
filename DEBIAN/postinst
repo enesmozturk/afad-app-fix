@@ -320,3 +320,18 @@ fi
 #else
 #echo "baobab yuklu degil"
 #fi
+###########Afad - Hakkında uygulmaması için###############################
+cp -r /opt/afad-app-fix/afad /usr/local/bin/
+chmod 644 /usr/local/bin/afad
+chmod +x /usr/local/bin/afad
+cp -r /opt/afad-app-fix/afad-hakkinda.desktop /usr/share/applications/
+########## locale ayarı için  ##########################
+locale_file1=$(less /etc/default/locale |grep en_US | wc -l)
+    if [ "$locale_file1" -eq "0" ] ; then
+    echo "ok:locale ayarli"
+    else 
+    echo 'LANG="tr_TR.UTF-8"' > /etc/default/locale
+    echo "ok:locale ayarlandı. restart bekleniyor."
+    fi
+
+

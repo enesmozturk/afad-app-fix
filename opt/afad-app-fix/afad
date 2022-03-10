@@ -1,0 +1,47 @@
+#!/bin/bash
+
+KIRMIZI_FG=`tput setaf 1`
+YESIL_FG=`tput setaf 2`
+SARI_FG=`tput setaf 3`
+MAVI_FG=`tput setaf 4`
+MOR_FG=`tput setaf 5`
+LILA_FG=`tput setaf 6`
+KIRMIZI_BG=`tput setab 1`
+YESIL_BG=`tput setab 2`
+SARI_BG=`tput setab 3`
+MAVI_BG=`tput setab 4`
+MOR_BG=`tput setab 5`
+LILA_BG=`tput setab 6`
+RESET=`tput sgr0`
+BOLD=`tput bold`
+CIZ=`tput sgr 0 1`
+echo """                      ___       _______    ___       _______  
+                     /   \     |   ____|  /   \     |       \ 
+                    /  ^  \    |  |__    /  ^  \    |  .--.  |
+                   /  /_\  \   |   __|  /  /_\  \   |  |  |  |
+                  /  _____  \  |  |    /  _____  \  |  '--'  |
+                 /__/     \__\ |__|   /__/     \__\ |_______/ 
+                                                              
+
+                                                        
+########################################################################														
+#################${BOLD}${MAVI_FG}Pardus Hakkında Uygulamasına Hoşgeldiniz!${RESET}##############
+########################################################################
+"""
+hostname | cut -d'.' -f1 | tr a-z A-Z > /tmp/afad-hostname.txt
+PC=$(cat /tmp/afad-hostname.txt)
+IP=$(ip addr | grep -v inet6 | grep inet | grep -v 127.0.0 |awk '{print $2}' | cut -d'/' -f1)
+pardus_version=$(less /etc/os-release |grep VERSION_ID | cut -d '"' -f2)
+echo " Kullanıcı       : $USER"
+echo "......................................................................"
+echo " PC IP           :${BOLD}${LILA_FG} $IP ${RESET}"
+echo "......................................................................"
+echo " PC ADI          :${BOLD}${YESIL_FG} $PC ${RESET}"
+echo "......................................................................"
+echo " Pardus versiyon : $pardus_version "
+
+echo """
+########################################################################
+"""
+read -p "Çıkmak için  enter tuşuna basın."
+exit
