@@ -307,7 +307,7 @@ fi
 if [ -f /usr/share/pardus/pardus-welcome/src/MainWindow.py ] && [ -d /usr/share/themes/Windows-10-master ]  ; then
 #sed -i 's+GLib.idle_add(ThemeManager.setTheme, "pardus")+GLib.idle_add(ThemeManager.setTheme, "pardus")+g' /usr/share/pardus/pardus-welcome/src/MainWindow.py
 sed -i 's+GLib.idle_add(ThemeManager.setIconTheme, "pardus")+GLib.idle_add(ThemeManager.setIconTheme, "Windows-10-master")+g' /usr/share/pardus/pardus-welcome/src/MainWindow.py
-sed -i 's+GLib.idle_add(ThemeManager.setWindowTheme, "pardus-default")+GLib.idle_add(ThemeManager.setWindowTheme, "Windows-10-master")+g' /usr/share/pardus/pardus-welcome/src/MainWindow.py
+sed -i 's+GLib.idle_add(ThemeManager.setWindowTheme, "Windows-10-master")+GLib.idle_add(ThemeManager.setWindowTheme, "pardus-default")+g' /usr/share/pardus/pardus-welcome/src/MainWindow.py
 cp /usr/share/images/desktop-base/afad* /usr/share/backgrounds/
 else
 echo "pardus-welcome yüklü degil"
@@ -322,7 +322,7 @@ fi
 #fi
 ###########Afad - Hakkında uygulmaması için###############################
 cp -r /opt/afad-app-fix/afad /usr/local/bin/
-chmod 644 /usr/local/bin/afad
+chmod 655 /usr/local/bin/afad
 chmod +x /usr/local/bin/afad
 cp -r /opt/afad-app-fix/afad-hakkinda.desktop /usr/share/applications/
 ########## locale ayarı için  ##########################
@@ -334,4 +334,15 @@ locale_file1=$(less /etc/default/locale |grep en_US | wc -l)
     echo "ok:locale ayarlandı. restart bekleniyor."
     fi
 
-
+###### SSSD Ayari-2 ######
+if [ -f  /etc/default/sssd ] ; then
+    sssd_file2=$(less  /etc/default/sssd |grep LC_ALL | wc -l)
+    if [ "$sssd_file2" -eq "0" ] ; then
+    echo """
+LC_ALL=tr_CY.UTF-8""" >> /etc/default/sssd
+    else 
+    echo ok
+    fi
+else
+echo "sssd yüklü degil"
+fi
