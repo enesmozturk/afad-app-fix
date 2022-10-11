@@ -36,29 +36,32 @@ echo "googleearth yüklü degil"
 fi
 #####################################################################################
 ################## Kesenek için thunar custom action ########################################
-kesenek_file1=$(less /etc/xdg/pardus/Thunar/uca.xml |grep -F Kesenek | wc -l)
-if [ "$kesenek_file1" -lt "1" ] ; then
-sed  -i '26i <action>' /etc/xdg/pardus/Thunar/uca.xml
-sed  -i '27i         <icon>akonadi</icon>' /etc/xdg/pardus/Thunar/uca.xml
-sed  -i '28i         <name>Kesenek Düzeltme</name>' /etc/xdg/pardus/Thunar/uca.xml
-sed  -i '29i         <command>iconv -f ISO-8859-9 -t UTF-8//TRANSLIT %f -o %d/duzeltilmis_%n</command>' /etc/xdg/pardus/Thunar/uca.xml
-sed  -i '30i         <description></description>' /etc/xdg/pardus/Thunar/uca.xml
-sed  -i '31i         <patterns>*</patterns>' /etc/xdg/pardus/Thunar/uca.xml
-sed  -i '32i         <text-files/>' /etc/xdg/pardus/Thunar/uca.xml
-sed  -i '33i </action>' /etc/xdg/pardus/Thunar/uca.xml
-sed  -i '21i <action>' /home/*/*/.config/Thunar/uca.xml
-sed  -i '22i         <icon>akonadi</icon>' /home/*/*/.config/Thunar/uca.xml
-sed  -i '23i         <name>Kesenek Düzeltme</name>' /home/*/*/.config/Thunar/uca.xml
-sed  -i '24i         <unique-id>1618560882392949-1</unique-id>' /home/*/*/.config/Thunar/uca.xml
-sed  -i '25i         <command>iconv -f ISO-8859-9 -t UTF-8//TRANSLIT %f -o %d/duzeltilmis_%n</command>' /home/*/*/.config/Thunar/uca.xml
-sed  -i '26i         <description></description>' /home/*/*/.config/Thunar/uca.xml
-sed  -i '27i         <patterns>*</patterns>' /home/*/*/.config/Thunar/uca.xml
-sed  -i '28i         <text-files/>' /home/*/*/.config/Thunar/uca.xml
-sed  -i '29i </action>' /home/*/*/.config/Thunar/uca.xml
-else 
-echo ok
+if [ -f /etc/xdg/pardus/Thunar/uca.xml ] ; then
+    kesenek_file1=$(less /etc/xdg/pardus/Thunar/uca.xml |grep -F Kesenek | wc -l)
+    if [ "$kesenek_file1" -lt "1" ] ; then
+    sed  -i '26i <action>' /etc/xdg/pardus/Thunar/uca.xml
+    sed  -i '27i         <icon>akonadi</icon>' /etc/xdg/pardus/Thunar/uca.xml
+    sed  -i '28i         <name>Kesenek Düzeltme</name>' /etc/xdg/pardus/Thunar/uca.xml
+    sed  -i '29i         <command>iconv -f ISO-8859-9 -t UTF-8//TRANSLIT %f -o %d/duzeltilmis_%n</command>' /etc/xdg/pardus/Thunar/uca.xml
+    sed  -i '30i         <description></description>' /etc/xdg/pardus/Thunar/uca.xml
+    sed  -i '31i         <patterns>*</patterns>' /etc/xdg/pardus/Thunar/uca.xml
+    sed  -i '32i         <text-files/>' /etc/xdg/pardus/Thunar/uca.xml
+    sed  -i '33i </action>' /etc/xdg/pardus/Thunar/uca.xml
+    sed  -i '21i <action>' /home/*/*/.config/Thunar/uca.xml
+    sed  -i '22i         <icon>akonadi</icon>' /home/*/*/.config/Thunar/uca.xml
+    sed  -i '23i         <name>Kesenek Düzeltme</name>' /home/*/*/.config/Thunar/uca.xml
+    sed  -i '24i         <unique-id>1618560882392949-1</unique-id>' /home/*/*/.config/Thunar/uca.xml
+    sed  -i '25i         <command>iconv -f ISO-8859-9 -t UTF-8//TRANSLIT %f -o %d/duzeltilmis_%n</command>' /home/*/*/.config/Thunar/uca.xml
+    sed  -i '26i         <description></description>' /home/*/*/.config/Thunar/uca.xml
+    sed  -i '27i         <patterns>*</patterns>' /home/*/*/.config/Thunar/uca.xml
+    sed  -i '28i         <text-files/>' /home/*/*/.config/Thunar/uca.xml
+    sed  -i '29i </action>' /home/*/*/.config/Thunar/uca.xml
+    else 
+    echo ok
+    fi
+else
+echo "thunar yüklü degil"
 fi
-
 
 
 
@@ -66,6 +69,8 @@ fi
 ###############################Samba ayari###########################################
 if [ -f /etc/samba/smb.conf ] ; then
     smb_file1=$(less /etc/samba/smb.conf |grep paylas* | wc -l)
+    mkdir -p /home/paylas
+    chmod 777 /home/paylas
     if [ "$smb_file1" -lt "1" ] ; then
     echo """    
         [paylas]
